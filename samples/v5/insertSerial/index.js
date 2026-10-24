@@ -4,7 +4,6 @@ import { findByRole } from "json-transformer-funcs";
 
 import spec from "../spec.json" with { type: "json" };
 import singleInstructions from "./instructions/single.json" with { type: "json" };
-import footerInstructions from "./instructions/footer.json" with { type: "json" };
 
 const insertSerial = (input = {}, config = {}, showLog = false, returnLog = []) => {
     let localTableSpec = input;
@@ -32,11 +31,6 @@ const insertSerial = (input = {}, config = {}, showLog = false, returnLog = []) 
     };
 
     runSingleInstructions(singleInstructions, registry, spec, showLog, returnLog);
-
-    const footerRow = findByRole(localTableSpec, "table-footer-row");
-    if (footerRow && Array.isArray(footerRow.children) && footerRow.children.length > 0) {
-        runSingleInstructions(footerInstructions, registry, spec, showLog, returnLog);
-    }
 
     return localTableSpec;
 };

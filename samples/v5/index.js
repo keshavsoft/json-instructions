@@ -32,4 +32,4 @@ const spec = startFunc({
     inBase: base
 });
 
-console.log("spec : ", JSON.stringify(spec, null, 2));
+console.log("spec : ", JSON.stringify(spec.children[1].children[0].children, null, 2));
