@@ -8,7 +8,7 @@ import singleInstructions from "./instructions/single.json" with { type: "json" 
 const insertSerial = (input = {}, config = {}, showLog = false, returnLog = []) => {
     let localTableSpec = input;
 
-    console.log("input : ", input, config);
+    // console.log("input : ", input, config);
 
     const localSerialMerged = {
         col: { width: "50px" },

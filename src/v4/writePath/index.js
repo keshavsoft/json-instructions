@@ -47,6 +47,9 @@ const resolveParent = (registry, path) => {
     const root = path.dataRole
         ? findByRole(registry[path.fileName], path.dataRole)
         : registry[path.fileName];
+
+    // console.log("root : ", root);
+
     const keys = [...(path.filePath ?? [])];
     const key = keys.pop();
     const parent = keys.reduce((current, nextKey) => current[nextKey], root);
@@ -54,8 +57,18 @@ const resolveParent = (registry, path) => {
 };
 
 const writePath = (registry, path, value) => {
+    // console.log("registry : ", registry);
+    // console.log("path : ", path);
+
     const { parent, key } = resolveParent(registry, path);
-    const action = actions[path.action] || set;
+    const localAction = path.action;
+
+    console.log("parent : ", parent);
+    console.log("key : ", key);
+    console.log("value : ", value);
+    console.log("localAction : ", localAction);
+
+    const action = actions[localAction] || set;
     action(parent, key, value);
 };
 

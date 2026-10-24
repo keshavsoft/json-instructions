@@ -1,6 +1,4 @@
 import insertSerial from "./insertSerial/index.js";
-import insertOptions from "./insertOptions/index.js";
-import insertSearch from "./insertSearch/index.js";
 
 import base from "./base.json" with { type: "json" };
 
@@ -11,14 +9,6 @@ const startFunc = ({ inOptions = {}, inBase, showLog = false, returnLog = [] }) 
 
     if (localOptions.showSerial || localOptions.serial) {
         insertSerial(localBase, localOptions.serial || {}, showLog, returnLog);
-    }
-
-    if (localOptions.showOptions || localOptions.options) {
-        insertOptions(localBase, localOptions.options || {}, showLog, returnLog);
-    };
-
-    if (localOptions.showSearch) {
-        insertSearch();
     };
 
     return localBase;
@@ -32,4 +22,4 @@ const spec = startFunc({
     inBase: base
 });
 
-console.log("spec : ", JSON.stringify(spec.children[1].children[0].children, null, 2));
+// console.log("spec : ", JSON.stringify(spec.children[1].children[0].children, null, 2));
