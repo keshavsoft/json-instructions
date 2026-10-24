@@ -1,13 +1,10 @@
 import runSingleInstructions from "../../../src/index.js";
 
-import applyTemplate from "json-transformer-funcs-primitive";
 import { findByRole } from "json-transformer-funcs";
 
 import spec from "../spec.json" with { type: "json" };
 import singleInstructions from "./instructions/single.json" with { type: "json" };
 import footerInstructions from "./instructions/footer.json" with { type: "json" };
-
-const functions = { applyTemplate };
 
 const insertOptions = (input = {}, config = {}, showLog = false, returnLog = []) => {
     let localTableSpec = input;
@@ -34,11 +31,11 @@ const insertOptions = (input = {}, config = {}, showLog = false, returnLog = [])
         spec
     };
 
-    runSingleInstructions(singleInstructions, registry, functions, spec, showLog, returnLog);
+    runSingleInstructions(singleInstructions, registry, spec, showLog, returnLog);
 
     const footerRow = findByRole(localTableSpec, "table-footer-row");
     if (footerRow && Array.isArray(footerRow.children) && footerRow.children.length > 0) {
-        runSingleInstructions(footerInstructions, registry, functions, spec, showLog, returnLog);
+        runSingleInstructions(footerInstructions, registry, spec, showLog, returnLog);
     }
 
     return localTableSpec;

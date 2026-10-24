@@ -1,8 +1,12 @@
+import applyTemplate from "json-transformer-funcs-primitive";
+
 import { resolvePath } from "json-transformer-funcs";
 import writePath from "./writePath/index.js";
 import checkInstruction from "./guards/index.js";
 
-const runSingleInstruction = (instruction, registry, functions, spec, showLog, returnLog) => {
+const functions = { applyTemplate };
+
+const runSingleInstruction = (instruction, registry, spec, showLog, returnLog) => {
     if (!checkInstruction(instruction, functions, spec, showLog, returnLog)) return;
 
     const localShowLog = showLog;
@@ -18,9 +22,9 @@ const runSingleInstruction = (instruction, registry, functions, spec, showLog, r
     writePath(registry, instruction.destinationPath, result);
 };
 
-const runSingleInstructions = (instructions, registry, functions, spec, showLog, returnLog) => {
+const runSingleInstructions = (instructions, registry, spec, showLog, returnLog) => {
     instructions.forEach(instruction => {
-        runSingleInstruction(instruction, registry, functions, spec, showLog, returnLog);
+        runSingleInstruction(instruction, registry, spec, showLog, returnLog);
     });
 };
 
