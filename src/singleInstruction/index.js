@@ -15,10 +15,6 @@ const runSingleInstruction = (instruction, registry, functions, spec, showLog, r
     const source = resolvePath(registry, instruction.sourcePath);
     const result = functions[instruction.func](source, localSpecKey);
 
-    // if (templateKey === "buildFooter") {
-    //     console.log("result ; ", result);
-    // };
-
     writePath(registry, instruction.destinationPath, result);
 };
 
