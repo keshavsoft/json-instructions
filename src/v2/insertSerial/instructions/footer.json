@@ -1,0 +1,22 @@
+[
+    {
+        "narration": "Prepend an empty cell into the table footer row if footer row is present.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-footer-row",
+            "filePath": [
+                "children"
+            ],
+            "action": "unshift"
+        },
+        "sourcePath": {
+            "fileName": "data",
+            "filePath": [
+                "serial",
+                "footer"
+            ]
+        },
+        "templateKey": "emptyCell",
+        "func": "applyTemplate"
+    }
+]
