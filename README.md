@@ -1,166 +1,151 @@
-# json-renderers-build-table
+# json-instructions
 
-> Build a complete HTML table JSON specification from columns + data — declaratively.
+> **Guard the instruction → resolve the source → apply the template → write the result.**
 
----
+`json-instructions` is the instruction runner that drives JSON tree transformations declaratively. You describe what should happen in a JSON array; this library executes each step.
 
-## Why this exists
-
-Building a `<table>` from raw data is repetitive work that quickly becomes messy:
-
-- You scatter `createElement` calls across your codebase
-- Adding a column means touching the header, the body cells, the footer, and the colgroup
-- Swapping a cell style for one column (e.g. a badge instead of plain text) means rewriting imperative DOM code
-- Testing is hard because the logic is entangled with the DOM
-
-This library inverts that. **You describe what the table should look like in JSON.** The library stamps it out.
-
-The result is a plain JSON object — a DOM specification — that you hand to a renderer like [`@keshavsoft/json-to-tag`](https://keshavsoft.github.io/json-to-tag/dist/v9/min.js). The renderer turns it into real DOM elements. The builder never touches the DOM.
+`writePath` — the write step — now lives in its own package: [`json-write-path`](https://www.npmjs.com/package/json-write-path).
 
 ---
 
-## The core idea: declarative instructions over a shared registry
+## The core idea
 
 Every build runs through three layers:
 
 ```
-1. Registry      holds { data, base, spec }
-                   data  = your columns + rows
-                   base  = the empty table skeleton (colgroup, thead, tbody, tfoot)
+1. Registry      holds named JSON trees
+                   data  = your source data
+                   base  = the target tree to mutate
                    spec  = named cell/row templates
 
-2. Instructions  a JSON array that says:
-                   "read THIS source path,
+2. Instructions  a JSON array where each item says:
+                   "guard this instruction,
+                    read THIS source path,
                     apply THIS template,
                     write the result to THIS destination"
 
-3. writePath     navigates the base tree by data-role anchor
-                 and writes using a named action
-                 (set / push / unshift / pushToRows / ...)
+3. Packages      json-transformer-funcs      → resolvePath (read)
+                 json-transformer-funcs-primitive → applyTemplate (transform)
+                 json-write-path             → writePath (write)
 ```
 
-Because the instructions are JSON, you can read a build sequence without tracing any JavaScript. Each instruction has a `narration` field that explains itself in plain English.
+Because instructions are JSON, you can read a build sequence without tracing any JavaScript. Each instruction has a `narration` field that explains itself in plain English.
 
 ---
 
-## How a table gets built (v18 `simple`)
+## Folder structure
 
 ```
-columns.json     batches.json
-      \               /
-       simple({ columns, data })
-              |
-              |  registry = { data, base, spec }
-              |
-              +-- single instructions (fromCollection)
-              |     colgroup children   (one <col> per column)
-              |     thead > tr children (one <th> per column)
-              |
-              +-- double instructions (twoDimensional)
-                    tbody children      (one <tr> per row, one <td> per column)
-              |
-              +-- returns base (fully populated JSON tree)
+src/
+  v6/
+    index.js            ← instruction runner (runSingleInstruction, runSingleInstructions)
+    spec.json           ← named cell/row/col templates
+    guards/
+      index.js          ← checkInstruction — structure + references guard
+      structure/        ← validates required fields are present
+      references/       ← validates func + templateKey exist in registry
 ```
 
-The returned `base` is a plain JavaScript object:
+---
+
+## The story in four steps
+
+Every instruction goes through the same pipeline:
+
+### Step 1 — Guard (`guards/`)
+
+`checkInstruction(instruction, functions, spec)` runs two checks in sequence:
+
+1. **`checkStructure`** — required fields (`func`, `templateKey`, `sourcePath`, `destinationPath`) must all be present.
+2. **`checkReferences`** — `instruction.func` must exist in the `functions` map, and `instruction.templateKey` must exist in `spec`.
+
+If either check fails the instruction is skipped entirely — no partial writes.
+
+### Step 2 — Resolve (`resolvePath` from `json-transformer-funcs`)
+
+```js
+const source = resolvePath(registry, instruction.sourcePath);
+```
+
+Reads a value out of the registry by following a `sourcePath` descriptor — the read-side counterpart of `writePath`.
+
+### Step 3 — Transform (`applyTemplate` from `json-transformer-funcs-primitive`)
+
+```js
+const result = applyTemplate(source, spec[instruction.templateKey]);
+```
+
+Takes the resolved source value and stamps it into the named template from `spec.json`. Returns a new JSON node ready to be written.
+
+### Step 4 — Write (`writePath` from `json-write-path`)
+
+```js
+writePath(registry, instruction.destinationPath, result);
+```
+
+Navigates the target tree using the `destinationPath` descriptor and applies the named action (`set`, `push`, `unshift`, `pushToRows`, etc.). See the [`json-write-path`](https://www.npmjs.com/package/json-write-path) docs for the full action catalogue.
+
+---
+
+## Instruction format
 
 ```json
 {
-  "tagName": "table",
-  "attributes": { "class": "table table-hover ..." },
-  "children": [
-    { "tagName": "colgroup", "children": [ "..." ] },
-    { "tagName": "thead",    "children": [ { "tagName": "tr", "children": [ "..." ] } ] },
-    { "tagName": "tbody",    "children": [ "..." ] },
-    { "tagName": "tfoot",    "children": [ "..." ] }
-  ]
+  "narration": "Prepend the serial header cell to the table header row.",
+  "destinationPath": {
+    "fileName": "base",
+    "dataRole": "table-header-row",
+    "filePath": ["children"],
+    "action": "unshift"
+  },
+  "sourcePath": {
+    "fileName": "data",
+    "filePath": ["serial", "header"]
+  },
+  "templateKey": "buildHeader",
+  "func": "applyTemplate"
 }
 ```
 
-Hand that to any spec-to-DOM renderer and you get a real table element.
-
----
-
-## Quick start
-
-```js
-import { simple } from "./docs/dist/v18/min.js";
-
-const columns = [
-    {
-        columnName: "itemName",
-        width: "300px",
-        template: { body: { tr: "buildBodyTr", cell: "buildBodyCell" } }
-    },
-    {
-        columnName: "baseUnit",
-        width: "200px",
-        template: { body: { tr: "buildBodyTr", cell: "buildBodyCell" } }
-    },
-    {
-        columnName: "batches",
-        width: "100px",
-        template: { body: { tr: "buildBodyTr", cell: "buttonCell" } }
-    }
-];
-
-const data = [
-    { itemName: "0.11-25", baseUnit: "kgs", batches: 1 },
-    { itemName: "0.11-30", baseUnit: "kgs", batches: 0 }
-];
-
-const spec = simple({ columns, data });
-
-// spec is a plain JSON tree — pass it to your DOM renderer
-const element = window.ks.jsonToTag.buildSpecElement(spec);
-document.getElementById("container").appendChild(element);
-```
-
----
-
-## What each column config means
-
 | Field | Purpose |
 |---|---|
-| `columnName` | Maps to the data property on each row object |
-| `width` | Written into the `<col>` element in the colgroup |
-| `template.body.tr` | Key into `spec.json` — which `<tr>` template to use for body rows |
-| `template.body.cell` | Key into `spec.json` — which `<td>` template to use for this column's cells |
-
-You change the look of a column's cells by pointing `template.body.cell` at a different key in `spec.json`. No JavaScript changes needed.
+| `narration` | Human-readable description of what this step does |
+| `sourcePath` | Where to read the source value from in the registry |
+| `templateKey` | Key into `spec.json` — selects the template to apply |
+| `func` | Name of the transform function to call |
+| `destinationPath` | Where + how to write the result (handled by `json-write-path`) |
 
 ---
 
-## Cell templates (`spec.json`)
+## API
 
-Pre-built templates in `src/v18/spec.json`:
+```js
+import runSingleInstructions, { runSingleInstruction } from "json-instructions";
 
-| Key | Renders |
+// Run all instructions in an array
+runSingleInstructions(instructions, registry, spec, showLog, returnLog);
+
+// Run a single instruction
+runSingleInstruction(instruction, registry, spec, showLog, returnLog);
+```
+
+| Parameter | Type | Purpose |
+|---|---|---|
+| `instructions` | `object[]` | Array of instruction objects |
+| `registry` | `object` | Named JSON trees (`{ data, base, spec, … }`) |
+| `spec` | `object` | Named templates (keyed by `templateKey`) |
+| `showLog` | `boolean` | Log each step to console |
+| `returnLog` | `array` | Accumulates log entries for inspection |
+
+---
+
+## Dependencies
+
+| Package | Role |
 |---|---|
-| `buildBodyCell` | Plain `<td>` with the row value as text |
-| `buttonCell` | `<td>` containing a `<button>` showing the aggregate count |
-| `buildHeader` | `<th>` with uppercase text |
-| `buildColGroup` | `<col>` with a width attribute |
-| `buildFooter` | `<td>` with a text `<input>` for footer rows |
-| `buildOption` | `<option>` element |
-| `buildSelect` | `<select>` container |
-| `buildDataList` | `<datalist>` container |
-
----
-
-## Why columns drive everything
-
-A column definition is the single source of truth for **one vertical slice** of the table:
-
-- its header cell (`buildHeader` template)
-- its width (`buildColGroup` template)
-- its body cell template (`template.body.cell`)
-- its footer cell (if enabled)
-
-Adding a column = adding one object to the columns array.  
-Removing a column = removing it.  
-The instructions loop over columns automatically.  
-There is no imperative "add a th, then add a td, then add a col" sequence to maintain.
+| [`json-transformer-funcs`](https://www.npmjs.com/package/json-transformer-funcs) | `resolvePath` — reads a value from the registry |
+| [`json-transformer-funcs-primitive`](https://www.npmjs.com/package/json-transformer-funcs-primitive) | `applyTemplate` — stamps a value into a template |
+| [`json-write-path`](https://www.npmjs.com/package/json-write-path) | `writePath` — navigates + mutates the target tree |
 
 ---
 
@@ -169,43 +154,5 @@ There is no imperative "add a th, then add a td, then add a col" sequence to mai
 ```bash
 npm install
 npm run build
-# output: docs/dist/v18/min.js
-```
-
-The Vite config auto-detects the highest `vN` folder under `src/` and builds that version. No config changes needed when a new version is added.
-
----
-
-## Run the sample
-
-```bash
-npx serve
-# open http://localhost:PORT/samples/v18/simpleTable/
-```
-
----
-
-## Project structure
-
-```
-src/
-  v18/
-    index.js              exports { simple }
-    spec.json             named cell/row templates
-    simple/
-      index.js            the build runner (registry + instructions)
-      base.json           empty table skeleton with data-role anchors
-      instructions/
-        single.json       fromCollection instructions (colgroup, thead)
-        double.json       twoDimensional instruction (tbody)
-      writePath/
-        index.js          tree writer with named actions
-
-samples/
-  v18/
-    simpleTable/          live demo: columns.json + batches.json
-
-docs/
-  dist/
-    v18/min.js            pre-built bundle (committed, served via GitHub Pages)
+# output: docs/dist/vN/min.js
 ```

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>writePath — Module Docs</title>
+  <title>json-instructions — Module Docs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <style>
@@ -20,9 +20,9 @@
       --yellow:    #d29922;
       --blue:      #58a6ff;
       --orange:    #f0883e;
+      --red:       #f85149;
       --text:      #e6edf3;
       --muted:     #8b949e;
-      --code-bg:   #161b22;
       --radius:    10px;
     }
 
@@ -34,164 +34,73 @@
       min-height: 100vh;
     }
 
-    /* ── layout ───────────────────────────────────────── */
     .layout { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
 
-    /* ── sidebar ─────────────────────────────────────── */
+    /* sidebar */
     aside {
       background: var(--surface);
       border-right: 1px solid var(--border);
       padding: 2rem 1.25rem;
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
+      position: sticky; top: 0;
+      height: 100vh; overflow-y: auto;
     }
-    .sidebar-logo {
-      font-size: .75rem;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      margin-bottom: 1.5rem;
-    }
+    .sidebar-logo { font-size: .75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 1.5rem; }
     .sidebar-logo span { color: var(--accent2); }
     nav a {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .4rem .75rem;
-      border-radius: 6px;
-      font-size: .875rem;
-      color: var(--muted);
-      text-decoration: none;
-      transition: background .15s, color .15s;
-      margin-bottom: 2px;
+      display: flex; align-items: center; gap: .5rem;
+      padding: .4rem .75rem; border-radius: 6px;
+      font-size: .875rem; color: var(--muted); text-decoration: none;
+      transition: background .15s, color .15s; margin-bottom: 2px;
     }
     nav a:hover, nav a.active { background: var(--surface2); color: var(--text); }
-    nav a .dot {
-      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
-      background: var(--border);
-    }
+    nav a .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; background: var(--border); }
     nav a.active .dot { background: var(--accent2); }
-    .nav-section {
-      font-size: .7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--muted);
-      padding: 1.25rem .75rem .4rem;
-    }
+    .nav-section { font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); padding: 1.25rem .75rem .4rem; }
 
-    /* ── main ────────────────────────────────────────── */
+    /* main */
     main { padding: 3rem 4rem; max-width: 900px; }
 
-    /* ── hero ────────────────────────────────────────── */
-    .hero {
-      margin-bottom: 3rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .badge {
-      display: inline-block;
-      background: color-mix(in srgb, var(--accent) 20%, transparent);
-      color: var(--accent2);
-      border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-      font-size: .7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      padding: .2rem .6rem;
-      border-radius: 4px;
-      margin-bottom: 1rem;
-    }
-    h1 {
-      font-size: 2.4rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #e6edf3 30%, var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.2;
-      margin-bottom: .75rem;
-    }
-    .subtitle { font-size: 1.1rem; color: var(--muted); max-width: 560px; }
+    /* hero */
+    .hero { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .badge { display: inline-block; background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--accent2); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; padding: .2rem .6rem; border-radius: 4px; margin-bottom: 1rem; }
+    h1 { font-size: 2.4rem; font-weight: 700; background: linear-gradient(135deg, #e6edf3 30%, var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.2; margin-bottom: .75rem; }
+    .subtitle { font-size: 1.1rem; color: var(--muted); max-width: 600px; }
 
-    /* ── section headings ─────────────────────────────── */
-    h2 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--text);
-      margin: 2.5rem 0 1rem;
-      padding-bottom: .5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--accent2);
-      margin: 1.75rem 0 .6rem;
-    }
+    h2 { font-size: 1.3rem; font-weight: 700; color: var(--text); margin: 2.5rem 0 1rem; padding-bottom: .5rem; border-bottom: 1px solid var(--border); }
+    h3 { font-size: 1rem; font-weight: 600; color: var(--accent2); margin: 1.75rem 0 .6rem; }
     p { color: var(--muted); margin-bottom: .75rem; }
 
-    /* ── flow diagram ─────────────────────────────────── */
-    .flow {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      margin: 1.5rem 0 2rem;
-      flex-wrap: wrap;
+    /* pipeline flow */
+    .pipeline {
+      display: flex; flex-direction: column; gap: .5rem; margin: 1.5rem 0 2rem;
     }
-    .flow-step {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1rem 1.25rem;
-      min-width: 160px;
-      text-align: center;
-      position: relative;
-      transition: border-color .2s, transform .2s;
+    .pipe-step {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1rem 1.25rem; display: grid; grid-template-columns: 32px 1fr auto;
+      align-items: center; gap: 1rem; transition: border-color .2s;
     }
-    .flow-step:hover { border-color: var(--accent2); transform: translateY(-2px); }
-    .flow-step .step-num {
-      font-size: .65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--muted);
-      margin-bottom: .25rem;
+    .pipe-step:hover { border-color: var(--accent2); }
+    .pipe-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; font-weight: 700; flex-shrink: 0;
+      background: var(--surface2); border: 1px solid var(--border); color: var(--muted);
     }
-    .flow-step .step-name {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .95rem;
-      font-weight: 600;
-      color: var(--text);
+    .pipe-step.guard   .pipe-num { background: color-mix(in srgb, var(--red) 20%, transparent);    border-color: var(--red);    color: var(--red); }
+    .pipe-step.resolve .pipe-num { background: color-mix(in srgb, var(--blue) 20%, transparent);   border-color: var(--blue);   color: var(--blue); }
+    .pipe-step.xform   .pipe-num { background: color-mix(in srgb, var(--yellow) 20%, transparent); border-color: var(--yellow); color: var(--yellow); }
+    .pipe-step.write   .pipe-num { background: color-mix(in srgb, var(--green) 20%, transparent);  border-color: var(--green);  color: var(--green); }
+    .pipe-body .pipe-fn { font-family: 'JetBrains Mono', monospace; font-size: .88rem; color: var(--text); font-weight: 600; }
+    .pipe-body .pipe-note { font-size: .78rem; color: var(--muted); margin-top: .15rem; }
+    .pipe-pkg {
+      font-size: .7rem; font-weight: 600; padding: .2rem .55rem; border-radius: 4px;
+      white-space: nowrap;
     }
-    .flow-step .step-desc {
-      font-size: .75rem;
-      color: var(--muted);
-      margin-top: .25rem;
-    }
-    .flow-step.resolve .step-name { color: var(--blue); }
-    .flow-step.pick    .step-name { color: var(--yellow); }
-    .flow-step.write   .step-name { color: var(--green); }
-    .flow-arrow {
-      font-size: 1.5rem;
-      color: var(--border);
-      padding: 0 .5rem;
-      flex-shrink: 0;
-    }
+    .pkg-local  { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent2); }
+    .pkg-extern { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
 
-    /* ── file tree ────────────────────────────────────── */
-    .tree {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .85rem;
-      line-height: 2;
-    }
+    /* folder tree */
+    .tree { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: .85rem; line-height: 2; }
     .tree-file { display: flex; align-items: baseline; gap: .75rem; }
     .tree-name { color: var(--text); }
     .tree-name.dir { color: var(--blue); font-weight: 600; }
@@ -199,205 +108,120 @@
     .tree-indent { padding-left: 1.5rem; }
     .tree-connector { color: var(--border); user-select: none; }
 
-    /* ── action table ─────────────────────────────────── */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1rem 0;
-      font-size: .875rem;
-    }
-    th {
-      background: var(--surface2);
-      color: var(--muted);
-      font-size: .7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      padding: .6rem 1rem;
-      text-align: left;
-      border: 1px solid var(--border);
-    }
-    td {
-      padding: .65rem 1rem;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      vertical-align: top;
-    }
-    td:first-child { font-family: 'JetBrains Mono', monospace; color: var(--orange); font-size: .85rem; }
-    td.file-ref { color: var(--blue); font-family: 'JetBrains Mono', monospace; font-size: .85rem; }
-    tr:hover td { background: color-mix(in srgb, var(--surface2) 60%, transparent); }
-    .tag-basic {
-      display: inline-block;
-      background: color-mix(in srgb, var(--green) 15%, transparent);
-      color: var(--green);
-      border-radius: 4px;
-      padding: .1rem .45rem;
-      font-size: .7rem;
-      font-weight: 600;
-    }
-    .tag-rows {
-      display: inline-block;
-      background: color-mix(in srgb, var(--orange) 15%, transparent);
-      color: var(--orange);
-      border-radius: 4px;
-      padding: .1rem .45rem;
-      font-size: .7rem;
-      font-weight: 600;
-    }
-
-    /* ── code blocks ──────────────────────────────────── */
-    pre {
-      background: var(--code-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.25rem 1.5rem;
-      overflow-x: auto;
-      margin: .75rem 0 1.25rem;
-    }
-    code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .83rem;
-      line-height: 1.7;
-    }
+    /* code */
+    pre { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; overflow-x: auto; margin: .75rem 0 1.25rem; }
+    code { font-family: 'JetBrains Mono', monospace; font-size: .83rem; line-height: 1.7; }
     .kw  { color: #ff7b72; }
     .fn  { color: #d2a8ff; }
     .str { color: #a5d6ff; }
     .cmt { color: #8b949e; font-style: italic; }
     .key { color: #79c0ff; }
-    .num { color: #f0883e; }
 
-    /* ── path descriptor cards ────────────────────────── */
-    .fields { display: grid; gap: .75rem; margin: 1rem 0; }
-    .field-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: .85rem 1.1rem;
-      display: grid;
-      grid-template-columns: 140px 1fr;
-      gap: .25rem 1rem;
-      align-items: start;
-    }
-    .field-name {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .9rem;
-      color: var(--orange);
-      font-weight: 600;
-    }
-    .field-type {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .75rem;
-      color: var(--muted);
-    }
-    .field-req {
-      font-size: .7rem;
-      font-weight: 700;
-      color: var(--green);
-    }
-    .field-opt { color: var(--muted); font-size: .7rem; }
-    .field-desc { color: var(--muted); font-size: .85rem; grid-column: 2; }
+    /* instruction anatomy */
+    .instr-grid { display: grid; gap: .6rem; margin: 1rem 0; }
+    .instr-field { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: .8rem 1.1rem; display: grid; grid-template-columns: 160px 1fr; gap: .25rem 1rem; }
+    .instr-name { font-family: 'JetBrains Mono', monospace; font-size: .88rem; color: var(--orange); font-weight: 600; }
+    .instr-desc { color: var(--muted); font-size: .85rem; }
 
-    /* ── callout ──────────────────────────────────────── */
-    .callout {
-      background: color-mix(in srgb, var(--accent) 10%, transparent);
-      border-left: 3px solid var(--accent2);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: .85rem 1.1rem;
-      margin: 1rem 0;
-      font-size: .875rem;
-      color: var(--muted);
-    }
+    /* dep cards */
+    .deps { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: .75rem; margin: 1rem 0; }
+    .dep-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; transition: border-color .2s; }
+    .dep-card:hover { border-color: var(--accent2); }
+    .dep-name { font-family: 'JetBrains Mono', monospace; font-size: .88rem; color: var(--blue); font-weight: 600; margin-bottom: .3rem; }
+    .dep-role { font-size: .78rem; color: var(--muted); }
+    .dep-fn { display: inline-block; margin-top: .4rem; font-family: 'JetBrains Mono', monospace; font-size: .78rem; color: var(--accent2); }
+
+    /* callout */
+    .callout { background: color-mix(in srgb, var(--accent) 10%, transparent); border-left: 3px solid var(--accent2); border-radius: 0 var(--radius) var(--radius) 0; padding: .85rem 1.1rem; margin: 1rem 0; font-size: .875rem; color: var(--muted); }
     .callout strong { color: var(--accent2); }
 
-    /* ── context pipeline ─────────────────────────────── */
-    .pipeline {
-      display: flex;
-      flex-direction: column;
-      gap: .5rem;
-      margin: 1rem 0;
-    }
-    .pipe-step {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: .7rem 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      font-size: .875rem;
-      transition: border-color .2s;
-    }
-    .pipe-step:hover { border-color: var(--accent2); }
-    .pipe-step .pipe-num {
-      width: 24px; height: 24px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .7rem; font-weight: 700; color: var(--muted);
-      flex-shrink: 0;
-    }
-    .pipe-step.active .pipe-num { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .pipe-fn { font-family: 'JetBrains Mono', monospace; font-size: .85rem; color: var(--blue); }
-    .pipe-note { color: var(--muted); font-size: .8rem; }
+    /* table */
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .875rem; }
+    th { background: var(--surface2); color: var(--muted); font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; padding: .6rem 1rem; text-align: left; border: 1px solid var(--border); }
+    td { padding: .65rem 1rem; border: 1px solid var(--border); color: var(--muted); vertical-align: top; }
+    td:first-child { font-family: 'JetBrains Mono', monospace; color: var(--orange); font-size: .85rem; }
+    tr:hover td { background: color-mix(in srgb, var(--surface2) 60%, transparent); }
   </style>
 </head>
 <body>
 <div class="layout">
 
-  <!-- ── SIDEBAR ── -->
+  <!-- SIDEBAR -->
   <aside>
-    <div class="sidebar-logo">json-instructions › <span>writePath</span></div>
+    <div class="sidebar-logo"><span>json-instructions</span></div>
     <nav>
       <div class="nav-section">Overview</div>
       <a href="#story" class="active"><span class="dot"></span>The Story</a>
       <a href="#structure"><span class="dot"></span>Folder Structure</a>
 
-      <div class="nav-section">Acts</div>
-      <a href="#resolve"><span class="dot"></span>Act 1 · Resolve</a>
-      <a href="#pick"><span class="dot"></span>Act 2 · Pick</a>
-      <a href="#write"><span class="dot"></span>Act 3 · Write</a>
+      <div class="nav-section">Steps</div>
+      <a href="#guard"><span class="dot"></span>Step 1 · Guard</a>
+      <a href="#resolve"><span class="dot"></span>Step 2 · Resolve</a>
+      <a href="#transform"><span class="dot"></span>Step 3 · Transform</a>
+      <a href="#write"><span class="dot"></span>Step 4 · Write</a>
 
       <div class="nav-section">Reference</div>
-      <a href="#actions"><span class="dot"></span>Actions</a>
-      <a href="#path-descriptor"><span class="dot"></span>Path Descriptor</a>
-      <a href="#context"><span class="dot"></span>In Context</a>
+      <a href="#instruction"><span class="dot"></span>Instruction Format</a>
+      <a href="#api"><span class="dot"></span>API</a>
+      <a href="#deps"><span class="dot"></span>Dependencies</a>
     </nav>
   </aside>
 
-  <!-- ── MAIN ── -->
+  <!-- MAIN -->
   <main>
 
     <!-- hero -->
     <div class="hero">
       <div class="badge">Module Docs</div>
-      <h1>writePath</h1>
-      <p class="subtitle">Resolve where to write → pick how to write → write it.</p>
+      <h1>json-instructions</h1>
+      <p class="subtitle">
+        Guard the instruction → resolve the source → apply the template → write the result.
+        <br>The instruction runner that drives JSON tree transformations declaratively.
+      </p>
     </div>
 
-    <!-- story flow -->
+    <!-- story / pipeline -->
     <section id="story">
       <h2>The Story</h2>
-      <p>Every write follows the same three-act structure. No act bleeds into the next — each module does exactly one thing.</p>
+      <p>Every instruction goes through the same four steps. Each step is handled by a dedicated function — sourced from this package or an external one.</p>
 
-      <div class="flow">
-        <div class="flow-step resolve">
-          <div class="step-num">Act 1</div>
-          <div class="step-name">resolveParent</div>
-          <div class="step-desc">registry + path → { parent, key }</div>
+      <div class="pipeline">
+        <div class="pipe-step guard">
+          <div class="pipe-num">1</div>
+          <div class="pipe-body">
+            <div class="pipe-fn">checkInstruction(instruction, functions, spec)</div>
+            <div class="pipe-note">Guard — validate structure and references before doing any work</div>
+          </div>
+          <span class="pipe-pkg pkg-local">local · guards/</span>
         </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step pick">
-          <div class="step-num">Act 2</div>
-          <div class="step-name">actions[name]</div>
-          <div class="step-desc">action string → write function</div>
+        <div class="pipe-step resolve">
+          <div class="pipe-num">2</div>
+          <div class="pipe-body">
+            <div class="pipe-fn">resolvePath(registry, sourcePath)</div>
+            <div class="pipe-note">Read — pull the source value out of the registry</div>
+          </div>
+          <span class="pipe-pkg pkg-extern">json-transformer-funcs</span>
         </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step write">
-          <div class="step-num">Act 3</div>
-          <div class="step-name">action()</div>
-          <div class="step-desc">mutate the node in-place</div>
+        <div class="pipe-step xform">
+          <div class="pipe-num">3</div>
+          <div class="pipe-body">
+            <div class="pipe-fn">applyTemplate(source, spec[templateKey])</div>
+            <div class="pipe-note">Transform — stamp the source into the named template</div>
+          </div>
+          <span class="pipe-pkg pkg-extern">json-transformer-funcs-primitive</span>
         </div>
+        <div class="pipe-step write">
+          <div class="pipe-num">4</div>
+          <div class="pipe-body">
+            <div class="pipe-fn">writePath(registry, destinationPath, result)</div>
+            <div class="pipe-note">Write — navigate the target tree and apply the named action</div>
+          </div>
+          <span class="pipe-pkg pkg-extern">json-write-path</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>writePath is now external.</strong> It moved to <code>json-write-path</code>. This package owns steps 1–3 (guard, resolve, transform) and orchestrates the call to step 4.
       </div>
     </section>
 
@@ -405,204 +229,162 @@
     <section id="structure">
       <h2>Folder Structure</h2>
       <div class="tree">
-        <div class="tree-file"><span class="tree-connector">📁</span><span class="tree-name dir">writePath/</span></div>
+        <div class="tree-file"><span class="tree-connector">📁</span><span class="tree-name dir">src/v6/</span></div>
         <div class="tree-indent">
-          <div class="tree-file"><span class="tree-connector">├──</span><span class="tree-name">index.js</span><span class="tree-desc">orchestrator — ties all three acts together</span></div>
-          <div class="tree-file"><span class="tree-connector">├── 📁</span><span class="tree-name dir">resolveParent/</span></div>
+          <div class="tree-file"><span class="tree-connector">├──</span><span class="tree-name">index.js</span><span class="tree-desc">instruction runner — runSingleInstruction, runSingleInstructions</span></div>
+          <div class="tree-file"><span class="tree-connector">├──</span><span class="tree-name">spec.json</span><span class="tree-desc">named cell / row / col templates</span></div>
+          <div class="tree-file"><span class="tree-connector">└── 📁</span><span class="tree-name dir">guards/</span></div>
           <div class="tree-indent">
-            <div class="tree-file"><span class="tree-connector">└──</span><span class="tree-name">index.js</span><span class="tree-desc">navigates registry + path → { parent, key }</span></div>
-          </div>
-          <div class="tree-file"><span class="tree-connector">├── 📁</span><span class="tree-name dir">actions/</span></div>
-          <div class="tree-indent">
-            <div class="tree-file"><span class="tree-connector">├──</span><span class="tree-name">index.js</span><span class="tree-desc">action registry — name → function lookup</span></div>
-            <div class="tree-file"><span class="tree-connector">├──</span><span class="tree-name">basic.js</span><span class="tree-desc">set · push · unshift — single-node writes</span></div>
-            <div class="tree-file"><span class="tree-connector">└──</span><span class="tree-name">rows.js</span><span class="tree-desc">pushToRows · unshiftToRows · unshiftSerialToRows — fan-out writes</span></div>
-          </div>
-          <div class="tree-file"><span class="tree-connector">└── 📁</span><span class="tree-name dir">utils/</span></div>
-          <div class="tree-indent">
-            <div class="tree-file"><span class="tree-connector">└──</span><span class="tree-name">toArray.js</span><span class="tree-desc">normalise scalar → array</span></div>
+            <div class="tree-file"><span class="tree-connector">├──</span><span class="tree-name">index.js</span><span class="tree-desc">checkInstruction — chains structure + references checks</span></div>
+            <div class="tree-file"><span class="tree-connector">├── 📁</span><span class="tree-name dir">structure/</span><span class="tree-desc">validates required fields are present</span></div>
+            <div class="tree-file"><span class="tree-connector">└── 📁</span><span class="tree-name dir">references/</span><span class="tree-desc">validates func + templateKey exist in registry</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- act 1 -->
+    <!-- step 1: guard -->
+    <section id="guard">
+      <h2>Step 1 — Guard</h2>
+      <p><code>checkInstruction</code> runs two validations in sequence. If either fails, the instruction is skipped entirely — no partial writes ever happen.</p>
+
+      <h3>checkStructure</h3>
+      <p>Confirms all required fields (<code>func</code>, <code>templateKey</code>, <code>sourcePath</code>, <code>destinationPath</code>) are present on the instruction object.</p>
+
+      <h3>checkReferences</h3>
+      <p>Confirms that <code>instruction.func</code> is a known function name and <code>instruction.templateKey</code> exists as a key in <code>spec</code>.</p>
+
+      <pre><code><span class="kw">const</span> structurePassed = <span class="fn">checkStructure</span>(instruction, showLog, returnLog);
+<span class="kw">if</span> (!structurePassed) <span class="kw">return false</span>;
+<span class="kw">return</span> <span class="fn">checkReferences</span>(instruction, functions, spec, showLog, returnLog);</code></pre>
+    </section>
+
+    <!-- step 2: resolve -->
     <section id="resolve">
-      <h2>Act 1 — Resolve</h2>
-      <p><code>resolveParent(registry, path)</code> turns a declarative path descriptor into two concrete handles: the <strong>parent</strong> object and the final <strong>key</strong> to write to.</p>
-
-      <h3>How it navigates</h3>
-      <ol style="color:var(--muted); padding-left:1.5rem; font-size:.9rem; line-height:2.2">
-        <li>Pick <code>registry[path.fileName]</code> as the root tree.</li>
-        <li>If <code>path.dataRole</code> is set, call <code>findByRole(root, dataRole)</code> to jump to a labelled subtree.</li>
-        <li>Walk every key in <code>path.filePath</code> <em>except</em> the last — each step descends one level.</li>
-        <li>Return <code>{ parent, key }</code> where <code>key</code> is the final element of <code>filePath</code>.</li>
-      </ol>
-
-      <h3>Example path</h3>
-      <pre><code>{
-  <span class="key">"fileName"</span>: <span class="str">"base"</span>,
-  <span class="key">"dataRole"</span>: <span class="str">"table-header-row"</span>,
-  <span class="key">"filePath"</span>: [<span class="str">"children"</span>],
-  <span class="key">"action"</span>: <span class="str">"unshift"</span>
-}</code></pre>
-      <p>With this path, <code>resolveParent</code> jumps to the node with <code>data-role="table-header-row"</code> inside the <code>base</code> tree, returning that node as <code>parent</code> and <code>"children"</code> as <code>key</code>.</p>
+      <h2>Step 2 — Resolve</h2>
+      <p>Reads the source value out of the registry by following a <code>sourcePath</code> descriptor — the read-side counterpart of <code>writePath</code>.</p>
+      <pre><code><span class="kw">const</span> source = <span class="fn">resolvePath</span>(registry, instruction.sourcePath);</code></pre>
     </section>
 
-    <!-- act 2 -->
-    <section id="pick">
-      <h2>Act 2 — Pick</h2>
-      <p><code>actions/index.js</code> is a plain object that maps action name strings to write functions. The orchestrator does:</p>
-      <pre><code><span class="kw">const</span> action = actions[path.action] || set;</code></pre>
-      <p>Unknown names fall back to <code>set</code> — a safe, non-destructive default.</p>
+    <!-- step 3: transform -->
+    <section id="transform">
+      <h2>Step 3 — Transform</h2>
+      <p>Stamps the resolved source value into the named template from <code>spec.json</code>. Returns a fully-formed JSON node.</p>
+      <pre><code><span class="kw">const</span> result = functions[instruction.func](source, localSpec[templateKey]);</code></pre>
 
-      <div class="callout">
-        <strong>basic vs rows</strong> — <code>basic.js</code> writes to <em>one</em> node. <code>rows.js</code> fans out across every row, deep-cloning the value each time so rows never share object references.
-      </div>
-    </section>
-
-    <!-- act 3 -->
-    <section id="write">
-      <h2>Act 3 — Write</h2>
-      <p>The orchestrator in <code>index.js</code> is intentionally minimal. It does not contain write logic — it only delegates:</p>
-      <pre><code><span class="kw">const</span> { parent, key } = <span class="fn">resolveParent</span>(registry, path);
-<span class="kw">const</span> action = actions[path.action] || set;
-<span class="fn">action</span>(parent, key, value);</code></pre>
-    </section>
-
-    <!-- actions table -->
-    <section id="actions">
-      <h2>Actions</h2>
+      <h3>Built-in templates (spec.json)</h3>
       <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>File</th>
-            <th>Type</th>
-            <th>What it does</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Key</th><th>Renders</th></tr></thead>
         <tbody>
-          <tr>
-            <td>set</td>
-            <td class="file-ref">basic.js</td>
-            <td><span class="tag-basic">basic</span></td>
-            <td>Assigns value directly: <code>parent[key] = value</code></td>
-          </tr>
-          <tr>
-            <td>push</td>
-            <td class="file-ref">basic.js</td>
-            <td><span class="tag-basic">basic</span></td>
-            <td>Appends value(s) to the end of <code>parent[key]</code></td>
-          </tr>
-          <tr>
-            <td>unshift</td>
-            <td class="file-ref">basic.js</td>
-            <td><span class="tag-basic">basic</span></td>
-            <td>Prepends value(s) to the start of <code>parent[key]</code></td>
-          </tr>
-          <tr>
-            <td>pushToRows</td>
-            <td class="file-ref">rows.js</td>
-            <td><span class="tag-rows">rows</span></td>
-            <td>Appends a deep-cloned value to every row's <code>children</code></td>
-          </tr>
-          <tr>
-            <td>unshiftToRows</td>
-            <td class="file-ref">rows.js</td>
-            <td><span class="tag-rows">rows</span></td>
-            <td>Prepends a deep-cloned value to every row's <code>children</code></td>
-          </tr>
-          <tr>
-            <td>unshiftSerialToRows</td>
-            <td class="file-ref">rows.js</td>
-            <td><span class="tag-rows">rows</span></td>
-            <td>Prepends a numbered clone (1, 2, 3…) to every row's <code>children</code></td>
-          </tr>
+          <tr><td>buildHeader</td><td><code>&lt;th&gt;</code> with uppercase text from <code>${columnName}</code></td></tr>
+          <tr><td>buildColGroup</td><td><code>&lt;col&gt;</code> with a <code>width</code> attribute</td></tr>
+          <tr><td>buildBodyCell</td><td>Plain <code>&lt;td&gt;</code> with row value as text</td></tr>
+          <tr><td>buildBodyTr</td><td><code>&lt;tr&gt;</code> shell for body rows</td></tr>
+          <tr><td>buildFooter</td><td><code>&lt;td&gt;</code> containing a text <code>&lt;input&gt;</code></td></tr>
+          <tr><td>buttonCell</td><td><code>&lt;td&gt;</code> with a <code>&lt;button&gt;</code> showing aggregate count</td></tr>
+          <tr><td>optionsButtonCell</td><td><code>&lt;td&gt;</code> with a named-column button</td></tr>
+          <tr><td>buildOption</td><td><code>&lt;option&gt;</code> with row value</td></tr>
+          <tr><td>buildSelect</td><td><code>&lt;select&gt;</code> container</td></tr>
+          <tr><td>buildDataList</td><td><code>&lt;datalist&gt;</code> container</td></tr>
+          <tr><td>emptyCell</td><td>Empty <code>&lt;td&gt;</code></td></tr>
         </tbody>
       </table>
     </section>
 
-    <!-- path descriptor -->
-    <section id="path-descriptor">
-      <h2>Path Descriptor</h2>
-      <p>The <code>destinationPath</code> object in an instruction JSON tells <code>writePath</code> everything it needs.</p>
-      <div class="fields">
-        <div class="field-card">
-          <div>
-            <div class="field-name">fileName</div>
-            <div class="field-type">string</div>
-            <div class="field-req">required</div>
-          </div>
-          <div class="field-desc">Key into the <code>registry</code>. Selects the root JSON tree to write into.</div>
+    <!-- step 4: write -->
+    <section id="write">
+      <h2>Step 4 — Write</h2>
+      <p>The transformed result is handed off to <code>json-write-path</code>. This package owns no write logic — it delegates entirely.</p>
+      <pre><code><span class="fn">writePath</span>(registry, instruction.destinationPath, result);</code></pre>
+      <p>See the <a href="https://www.npmjs.com/package/json-write-path" style="color:var(--blue)">json-write-path docs</a> for the full action catalogue (<code>set</code>, <code>push</code>, <code>unshift</code>, <code>pushToRows</code>, <code>unshiftToRows</code>, <code>unshiftSerialToRows</code>).</p>
+    </section>
+
+    <!-- instruction format -->
+    <section id="instruction">
+      <h2>Instruction Format</h2>
+      <pre><code>{
+  <span class="key">"narration"</span>: <span class="str">"Prepend the serial header cell to the table header row."</span>,
+  <span class="key">"destinationPath"</span>: {
+    <span class="key">"fileName"</span>: <span class="str">"base"</span>,
+    <span class="key">"dataRole"</span>: <span class="str">"table-header-row"</span>,
+    <span class="key">"filePath"</span>: [<span class="str">"children"</span>],
+    <span class="key">"action"</span>: <span class="str">"unshift"</span>
+  },
+  <span class="key">"sourcePath"</span>: {
+    <span class="key">"fileName"</span>: <span class="str">"data"</span>,
+    <span class="key">"filePath"</span>: [<span class="str">"serial"</span>, <span class="str">"header"</span>]
+  },
+  <span class="key">"templateKey"</span>: <span class="str">"buildHeader"</span>,
+  <span class="key">"func"</span>: <span class="str">"applyTemplate"</span>
+}</code></pre>
+
+      <div class="instr-grid">
+        <div class="instr-field">
+          <div class="instr-name">narration</div>
+          <div class="instr-desc">Human-readable description of what this step does — self-documenting build sequences</div>
         </div>
-        <div class="field-card">
-          <div>
-            <div class="field-name">dataRole</div>
-            <div class="field-type">string</div>
-            <div class="field-opt">optional</div>
-          </div>
-          <div class="field-desc">If present, <code>findByRole</code> is called to jump to the subtree whose <code>data-role</code> attribute matches this value before walking <code>filePath</code>.</div>
+        <div class="instr-field">
+          <div class="instr-name">sourcePath</div>
+          <div class="instr-desc">Descriptor passed to <code>resolvePath</code> — where to read the input value from</div>
         </div>
-        <div class="field-card">
-          <div>
-            <div class="field-name">filePath</div>
-            <div class="field-type">string[]</div>
-            <div class="field-req">required</div>
-          </div>
-          <div class="field-desc">Array of keys to descend through. The last element becomes <code>key</code>; every preceding element is walked as a parent.</div>
+        <div class="instr-field">
+          <div class="instr-name">templateKey</div>
+          <div class="instr-desc">Key into <code>spec.json</code> — selects which template to apply to the source</div>
         </div>
-        <div class="field-card">
-          <div>
-            <div class="field-name">action</div>
-            <div class="field-type">string</div>
-            <div class="field-opt">optional</div>
-          </div>
-          <div class="field-desc">Name of the action to use. Falls back to <code>set</code> if omitted or unrecognised.</div>
+        <div class="instr-field">
+          <div class="instr-name">func</div>
+          <div class="instr-desc">Name of the transform function to call (<code>applyTemplate</code> by default)</div>
+        </div>
+        <div class="instr-field">
+          <div class="instr-name">destinationPath</div>
+          <div class="instr-desc">Descriptor passed to <code>writePath</code> — where + how to write the result</div>
         </div>
       </div>
     </section>
 
-    <!-- in context -->
-    <section id="context">
-      <h2>writePath in Context</h2>
-      <p><code>writePath</code> is the final step of <code>runSingleInstruction</code>. The pipeline for one instruction looks like this:</p>
+    <!-- api -->
+    <section id="api">
+      <h2>API</h2>
+      <pre><code><span class="kw">import</span> runSingleInstructions, { runSingleInstruction } <span class="kw">from</span> <span class="str">"json-instructions"</span>;
 
-      <div class="pipeline">
-        <div class="pipe-step">
-          <div class="pipe-num">1</div>
-          <div>
-            <div class="pipe-fn">checkInstruction()</div>
-            <div class="pipe-note">Guard — validates the instruction before doing any work</div>
-          </div>
+<span class="cmt">// Run all instructions in sequence</span>
+<span class="fn">runSingleInstructions</span>(instructions, registry, spec, showLog, returnLog);
+
+<span class="cmt">// Run a single instruction</span>
+<span class="fn">runSingleInstruction</span>(instruction, registry, spec, showLog, returnLog);</code></pre>
+
+      <table>
+        <thead><tr><th>Parameter</th><th>Type</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>instructions</td><td>object[]</td><td>Array of instruction objects</td></tr>
+          <tr><td>registry</td><td>object</td><td>Named JSON trees — <code>{ data, base, spec, … }</code></td></tr>
+          <tr><td>spec</td><td>object</td><td>Named templates keyed by <code>templateKey</code></td></tr>
+          <tr><td>showLog</td><td>boolean</td><td>Log each step to the console</td></tr>
+          <tr><td>returnLog</td><td>array</td><td>Accumulates log entries for inspection</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- deps -->
+    <section id="deps">
+      <h2>Dependencies</h2>
+      <div class="deps">
+        <div class="dep-card">
+          <div class="dep-name">json-transformer-funcs</div>
+          <div class="dep-role">Read — resolves a value from the registry by path descriptor</div>
+          <div class="dep-fn">resolvePath(registry, path)</div>
         </div>
-        <div class="pipe-step">
-          <div class="pipe-num">2</div>
-          <div>
-            <div class="pipe-fn">resolvePath(registry, sourcePath)</div>
-            <div class="pipe-note">Read — pulls the source value out of the registry</div>
-          </div>
+        <div class="dep-card">
+          <div class="dep-name">json-transformer-funcs-primitive</div>
+          <div class="dep-role">Transform — stamps source data into a JSON template</div>
+          <div class="dep-fn">applyTemplate(source, template)</div>
         </div>
-        <div class="pipe-step">
-          <div class="pipe-num">3</div>
-          <div>
-            <div class="pipe-fn">applyTemplate(source, spec[templateKey])</div>
-            <div class="pipe-note">Transform — builds the value to be written</div>
-          </div>
-        </div>
-        <div class="pipe-step active">
-          <div class="pipe-num">4</div>
-          <div>
-            <div class="pipe-fn">writePath(registry, destinationPath, result)</div>
-            <div class="pipe-note">Write — this module. Resolve, pick, mutate.</div>
-          </div>
+        <div class="dep-card">
+          <div class="dep-name">json-write-path</div>
+          <div class="dep-role">Write — navigates target tree and applies a named action</div>
+          <div class="dep-fn">writePath(registry, path, value)</div>
         </div>
       </div>
-
-      <pre><code><span class="cmt">// runSingleInstruction — src/v5/index.js</span>
-<span class="kw">const</span> source = <span class="fn">resolvePath</span>(registry, instruction.sourcePath);
-<span class="kw">const</span> result = <span class="fn">applyTemplate</span>(source, localSpec[templateKey]);
-<span class="fn">writePath</span>(registry, instruction.destinationPath, result);</code></pre>
     </section>
 
   </main>
