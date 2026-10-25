@@ -7,7 +7,7 @@ import resolvePath from "json-source-path";
 
 import checkInstruction from "./guards/index.js";
 
-import spec from "./spec.json";
+import spec from "./spec.json" with {type: "json"};
 
 const functions = { applyTemplate, fromCollection, twoDimensional };
 

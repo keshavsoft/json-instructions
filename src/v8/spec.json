@@ -103,5 +103,18 @@
     "emptyCell": {
         "tagName": "td",
         "children": []
+    },
+    "headerSerialCell": {
+        "tagName": "th",
+        "textContent": "#",
+        "attributes": {
+            "class": "py-3 px-3 fw-semibold text-uppercase small"
+        }
+    },
+    "colGroupForSerial": {
+        "tagName": "col",
+        "attributes": {
+            "width": "50px"
+        }
     }
 }
