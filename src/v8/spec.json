@@ -129,5 +129,20 @@
         "attributes": {
             "class": "py-3 px-3 fw-semibold text-uppercase small"
         }
+    },
+    "tdWithButtonSaveWarning": {
+        "tagName": "td",
+        "attributes": {
+            "class": "py-2 px-3 text-center"
+        },
+        "children": [
+            {
+                "tagName": "button",
+                "textContent": "save",
+                "attributes": {
+                    "class": "btn btn-warning btn-sm"
+                }
+            }
+        ]
     }
 }
