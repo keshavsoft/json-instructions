@@ -119,33 +119,43 @@ var l = (e, t) => {
 }, b = (e, t, n) => {
 	let { parent: r, key: i } = y(e, t);
 	(p[t.action] || f)(r, i, n);
-}, x = (e, t, n) => {
+}, x = (e, t) => {
+	if (e?.attributes?.["data-role"] === t) return e;
+	for (let n of e?.children ?? []) {
+		let e = x(n, t);
+		if (e) return e;
+	}
+	return null;
+}, S = (e, t) => {
+	let n = e[t.fileName], r = t.dataRole ? x(n, t.dataRole) : n;
+	return (t.filePath ?? []).reduce((e, t) => e[t], r);
+}, C = (e, t, n) => {
 	let r = !!(e.sourcePath?.fileName && Array.isArray(e.sourcePath?.filePath)), i = `structure/sourcePath: ${r ? "passed" : "failed"}`;
 	return n.push(i), t && console.log(i), r;
-}, S = (e, t, n) => {
+}, w = (e, t, n) => {
 	let r = !!(e.destinationPath?.fileName && Array.isArray(e.destinationPath?.filePath)), i = `structure/destinationPath: ${r ? "passed" : "failed"}`;
 	return n.push(i), t && console.log(i), r;
-}, C = (e, t, n) => {
+}, T = (e, t, n) => {
 	let r = e.templateKey === void 0 || typeof e.templateKey == "string" && e.templateKey.length > 0, i = `structure/templateKey: ${r ? "passed" : "failed"}`;
 	return n.push(i), t && console.log(i), r;
-}, w = (e, t, n) => {
+}, E = (e, t, n) => {
 	let r = typeof e.func == "string" && e.func.length > 0, i = `structure/func: ${r ? "passed" : "failed"}`;
 	return n.push(i), t && console.log(i), r;
-}, T = (e, t, n) => [
-	x(e, t, n),
-	S(e, t, n),
+}, D = (e, t, n) => [
 	C(e, t, n),
-	w(e, t, n)
-].every(Boolean), E = (e, t, n, r) => {
+	w(e, t, n),
+	T(e, t, n),
+	E(e, t, n)
+].every(Boolean), O = (e, t, n, r) => {
 	let i = typeof t[e.func] == "function", a = `references/func (${e.func}): ${i ? "passed" : "failed"}`;
 	return r.push(a), n && console.log(a), i;
-}, D = (e, t, n, r) => {
+}, k = (e, t, n, r) => {
 	let i = e.templateKey === void 0 || Object.hasOwn(t, e.templateKey), a = `references/templateKey${e.templateKey === void 0 ? " (not used)" : ` (${e.templateKey})`}: ${i ? "passed" : "failed"}`;
 	return r.push(a), n && console.log(a), i;
-}, O = (e, t, n, r, i) => {
-	let a = E(e, t, r, i), o = D(e, n, r, i);
+}, A = (e, t, n, r, i) => {
+	let a = O(e, t, r, i), o = k(e, n, r, i);
 	return a && o;
-}, k = (e, t, n, r, i) => T(e, r, i) ? O(e, t, n, r, i) : !1, A = {
+}, j = (e, t, n, r, i) => D(e, r, i) ? A(e, t, n, r, i) : !1, M = {
 	buildBodyTr: {
 		tagName: "tr",
 		attributes: { class: "align-middle" },
@@ -248,25 +258,28 @@ var l = (e, t) => {
 			attributes: { class: "btn btn-warning btn-sm ks-btn-save" }
 		}]
 	}
-}, j = (e, t, n, r) => {
-	let i = n, a = A, o = e.templateKey, s = a[o];
-	i && console.log("singleInstruction ; ", o, s), b(t, e.destinationPath, s);
-}, M = (e, t, n, r) => {
-	e.forEach((e) => {
-		j(e, t, n, r);
-	});
 }, N = {
+	applyTemplate: c,
+	fromCollection: u
+}, P = (e, t) => e?.sourcePath === null ? null : S(t, e.sourcePath), F = (e, t, n, r) => {
+	let i = M[e.templateKey], a = P(e, t), o = N[e.func](a, i);
+	a === null && (o = i), b(t, e.destinationPath, o);
+}, I = (e, t, n, r) => {
+	e.forEach((e) => {
+		F(e, t, n, r);
+	});
+}, L = {
 	applyTemplate: c,
 	fromCollection: u,
 	twoDimensional: _
-}, P = (e, t, n, r) => {
-	if (!k(e, N, A, n, r)) return;
-	let i = N[e.func](t.data.columns, t.data.data, A);
+}, R = (e, t, n, r) => {
+	if (!j(e, L, M, n, r)) return;
+	let i = L[e.func](t.data.columns, t.data.data, M);
 	b(t, e.destinationPath, i);
-}, F = (e, t, n, r) => {
+}, z = (e, t, n, r) => {
 	e.forEach((e) => {
-		P(e, t, n, r);
+		R(e, t, n, r);
 	});
 };
 //#endregion
-export { F as runDoubleInstructions, M as runSingleInstructions };
+export { z as runDoubleInstructions, I as runSingleInstructions };

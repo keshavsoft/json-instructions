@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instruction Detail | json-instructions</title>
+    <style>
+      :root {
+        --bg: #0b1220;
+        --panel: #121b2a;
+        --panel-2: #182437;
+        --border: #2a3d57;
+        --text: #eaf2ff;
+        --muted: #a7b8cf;
+        --accent: #7dd3fc;
+        --accent-2: #c084fc;
+        --green: #4ade80;
+        --orange: #fbbf24;
+        --red: #f87171;
+        --shadow: rgba(2, 6, 23, 0.55);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: linear-gradient(180deg, #0b1220 0%, #111827 100%);
+        color: var(--text);
+      }
+
+      .page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 20px 60px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .brand {
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      .brand span { color: var(--accent); }
+
+      .back {
+        color: var(--text);
+        text-decoration: none;
+        padding: 8px 14px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--panel);
+      }
+
+      .hero {
+        margin-bottom: 24px;
+        padding: 28px;
+        background: rgba(18, 27, 42, 0.92);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        box-shadow: 0 18px 40px var(--shadow);
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: clamp(2rem, 3vw, 3rem);
+        line-height: 1.12;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+        max-width: 760px;
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1.4fr 0.8fr;
+        gap: 22px;
+      }
+
+      .panel {
+        background: rgba(18, 27, 42, 0.92);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 20px 20px 18px;
+        box-shadow: 0 12px 30px var(--shadow);
+      }
+
+      .panel h2 {
+        margin-top: 0;
+        font-size: 1.15rem;
+        margin-bottom: 14px;
+      }
+
+      .label {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: rgba(125, 211, 252, 0.12);
+        color: var(--accent);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+
+      pre {
+        margin: 0;
+        background: #0a1320;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 18px;
+        overflow: auto;
+        font-size: 0.86rem;
+        line-height: 1.6;
+        color: #dfeeff;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .field-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .field {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 12px;
+        padding: 14px 16px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--panel-2);
+      }
+
+      .field-name {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        color: var(--orange);
+        font-weight: 700;
+      }
+
+      .field-text {
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .why {
+        margin-top: 22px;
+      }
+
+      ul {
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      .small-note {
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 0.94rem;
+      }
+
+      .code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      }
+
+      @media (max-width: 800px) {
+        .two-col { grid-template-columns: 1fr; }
+        .field { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="topbar">
+        <div class="brand"><span>json</span>-instructions</div>
+        <a class="back" href="index.html">← Back to docs</a>
+      </div>
+
+      <header class="hero">
+        <div class="label">Instruction detail</div>
+        <h1>Prepend serial header cell</h1>
+        <p class="subtitle">
+          This is the actual unit of work used by the highest source version in the repo. One instruction reads a value,
+          applies a template, and writes the result to a target path.
+        </p>
+      </header>
+
+      <div class="two-col">
+        <section class="panel">
+          <h2>Instruction object</h2>
+          <pre><code>{
+  "narration": "Prepend the serial header cell to the table header row.",
+  "destinationPath": {
+    "fileName": "base",
+    "dataRole": "table-header-row",
+    "filePath": ["children"],
+    "action": "unshift"
+  },
+  "sourcePath": {
+    "fileName": "data",
+    "filePath": ["serial", "header"]
+  },
+  "templateKey": "headerSerialCell",
+  "func": "applyTemplate"
+}</code></pre>
+        </section>
+
+        <aside class="panel">
+          <h2>Why this structure?</h2>
+          <ul>
+            <li>It is atomic: one instruction = one transformation.</li>
+            <li>It is declarative: the JSON tells the code what to do.</li>
+            <li>It is registry-driven: source and destination live in named JSON trees.</li>
+            <li>It is reusable: the template is separate from the instruction.</li>
+          </ul>
+        </aside>
+      </div>
+
+      <section class="panel why">
+        <h2>Field breakdown</h2>
+        <div class="field-grid">
+          <div class="field">
+            <div class="field-name">narration</div>
+            <div class="field-text">Human-readable description of the operation. This makes the instruction readable without needing to understand the code.</div>
+          </div>
+
+          <div class="field">
+            <div class="field-name">sourcePath</div>
+            <div class="field-text">Where the value comes from in the registry. In this example it reads from <span class="code">data.serial.header</span>.</div>
+          </div>
+
+          <div class="field">
+            <div class="field-name">templateKey</div>
+            <div class="field-text">Which named template is applied. Here it uses <span class="code">headerSerialCell</span>, which is defined in the spec.</div>
+          </div>
+
+          <div class="field">
+            <div class="field-name">func</div>
+            <div class="field-text">The transform function to call. This repo uses <span class="code">applyTemplate</span> for template stamping.</div>
+          </div>
+
+          <div class="field">
+            <div class="field-name">destinationPath</div>
+            <div class="field-text">Where the result is written and how it is inserted: <span class="code">base.table-header-row.children</span> with action <span class="code">unshift</span>.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel why">
+        <h2>Execution pattern from the v11 source</h2>
+        <pre><code>const source = resolvePath(registry, instruction.sourcePath);
+const result = functions[instruction.func](source, spec[instruction.templateKey]);
+writePath(registry, instruction.destinationPath, result);</code></pre>
+        <p class="small-note">
+          This is the actual rule used by the highest version in <span class="code">src/v11/singleInstructions.js</span>.
+          The instruction is the unit, and the runner is just a loop that executes those instructions in order.
+        </p>
+      </section>
+    </div>
+  </body>
+</html>
