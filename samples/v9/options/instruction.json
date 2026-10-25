@@ -1,0 +1,58 @@
+[
+    {
+        "narration": "Prepend the serial column width to the table colgroup.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-colgroup",
+            "filePath": [
+                "children"
+            ],
+            "action": "unshift"
+        },
+        "sourcePath": null,
+        "templateKey": "colGroupForSerial",
+        "func": null
+    },
+    {
+        "narration": "Prepend the serial header cell to the table header row.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-header-row",
+            "filePath": [
+                "children"
+            ],
+            "action": "unshift"
+        },
+        "sourcePath": null,
+        "templateKey": "headerSerialCell",
+        "func": null
+    },
+    {
+        "narration": "Prepend the serial number cell into each table body row.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-body",
+            "filePath": [
+                "children"
+            ],
+            "action": "unshiftSerialToRows"
+        },
+        "sourcePath": null,
+        "templateKey": "buildBodyCell",
+        "func": null
+    },
+    {
+        "narration": "Prepend the serial footer cell to the table footer row.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-footer-row",
+            "filePath": [
+                "children"
+            ],
+            "action": "unshift"
+        },
+        "sourcePath": null,
+        "templateKey": "headerSerialCell",
+        "func": null
+    }
+]
