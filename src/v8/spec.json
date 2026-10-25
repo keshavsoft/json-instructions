@@ -74,7 +74,7 @@
                 "tagName": "button",
                 "textContent": "show",
                 "attributes": {
-                    "class": "btn btn-primary btn-sm"
+                    "class": "btn btn-primary btn-sm ks-btn-show"
                 }
             }
         ]
@@ -140,7 +140,7 @@
                 "tagName": "button",
                 "textContent": "save",
                 "attributes": {
-                    "class": "btn btn-warning btn-sm"
+                    "class": "btn btn-warning btn-sm ks-btn-save"
                 }
             }
         ]
