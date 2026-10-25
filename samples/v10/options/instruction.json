@@ -1,0 +1,16 @@
+[
+    {
+        "narration": "Prepend the serial header cell to the table header row.",
+        "destinationPath": {
+            "fileName": "base",
+            "dataRole": "table-header-row",
+            "filePath": [
+                "children"
+            ],
+            "action": "unshift"
+        },
+        "sourcePath": null,
+        "templateKey": "headerSerialCell",
+        "func": null
+    }
+]
