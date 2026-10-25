@@ -1,62 +1,44 @@
 [
     {
-        "narration": "Prepend the serial column width to the table colgroup.",
+        "narration": "Append the options column width to the table colgroup.",
         "destinationPath": {
             "fileName": "base",
             "dataRole": "table-colgroup",
             "filePath": [
                 "children"
             ],
-            "action": "unshift"
+            "action": "push"
         },
-        "sourcePath": {
-            "fileName": "data",
-            "filePath": [
-                "serial",
-                "col"
-            ]
-        },
-        "templateKey": "colGroupForSerial",
+        "sourcePath": null,
+        "templateKey": "colGroupForOption",
         "func": "applyTemplate"
     },
     {
-        "narration": "Prepend the serial header cell to the table header row.",
+        "narration": "Append the options header cell to the table header row.",
         "destinationPath": {
             "fileName": "base",
             "dataRole": "table-header-row",
             "filePath": [
                 "children"
             ],
-            "action": "unshift"
+            "action": "push"
         },
-        "sourcePath": {
-            "fileName": "data",
-            "filePath": [
-                "serial",
-                "header"
-            ]
-        },
-        "templateKey": "headerSerialCell",
+        "sourcePath": null,
+        "templateKey": "headerForOption",
         "func": "applyTemplate"
     },
     {
-        "narration": "Prepend the serial number cell into each table body row.",
+        "narration": "Append the options button cell into each table body row.",
         "destinationPath": {
             "fileName": "base",
             "dataRole": "table-body",
             "filePath": [
                 "children"
             ],
-            "action": "unshiftSerialToRows"
+            "action": "pushToRows"
         },
-        "sourcePath": {
-            "fileName": "data",
-            "filePath": [
-                "serial",
-                "body"
-            ]
-        },
-        "templateKey": "buildBodyCell",
+        "sourcePath": null,
+        "templateKey": "optionsButtonCell",
         "func": "applyTemplate"
     }
 ]

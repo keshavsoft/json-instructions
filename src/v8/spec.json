@@ -72,7 +72,7 @@
         "children": [
             {
                 "tagName": "button",
-                "textContent": "${columnName}",
+                "textContent": "show",
                 "attributes": {
                     "class": "btn btn-primary btn-sm"
                 }
@@ -115,6 +115,19 @@
         "tagName": "col",
         "attributes": {
             "width": "50px"
+        }
+    },
+    "colGroupForOption": {
+        "tagName": "col",
+        "attributes": {
+            "width": "100px"
+        }
+    },
+    "headerForOption": {
+        "tagName": "th",
+        "textContent": "options",
+        "attributes": {
+            "class": "py-3 px-3 fw-semibold text-uppercase small"
         }
     }
 }
